@@ -6,13 +6,13 @@ let quotes = [
 
 
 //these allows us to manipulate the HTML page using JavaScript
-const quoteDisplay = document.getElementById("qouteDisplay");
-const qouteDisplay = document.getElementById("newQuote");
+const quoteDisplay = document.getElementById("quoteDisplay");
+const newQuoteButton = document.getElementById("newQuote");
 
 // Function to show random Qoute
 function showRandomQuote() {
     // Math.random() gives a random decimal between 0 and 1 and Multiply it by the length of quotes array to get a random 
-    let randomIndex = Math.floor(Math.random() * quotes.lenght);
+    let randomIndex = Math.floor(Math.random() * quotes.length);
 
     //select the random quote from the array
     let randomQuote = quotes[randomIndex];
@@ -27,68 +27,29 @@ function showRandomQuote() {
 //Function to add new quote
 function addQuotes() {
     //Get the values added by the user
-    let qouteText = document.getElementById("newQuoteText").value.trim();
+    let quoteText = document.getElementById("newQuote").value.trim();
     let quoteCategory = document.getElementById("newQuoteCategory").value.trim();
  
-    if (qouteText === "" || quoteCategory ==="" ) {
+    if (quoteText === "" || quoteCategory ==="" ) {
         alert("Please Enter a quote and Category.");
         return;
     }
 
-     
+     //Create a new qoute object 
+     let newQuote = {text: quoteText, category:quoteCategory};
+     //add it to the quotes array
+     alert("New quote added successfully");
+
+     //this clears the input feilds for better user experience
+     document.getElementById("newQuoteText").value = "";
+     document.getElementById("newQuoteCategory").value = "";
 
 
+     //this attach the event listener
 
+     newQuoteButton.addEventListener("click", showRandomQuote);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+     showRandomQuote();
 
 
 }
