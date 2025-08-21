@@ -23,3 +23,72 @@ function showRandomQuote() {
     <p><strong>Category:</strong> ${randomQuote.category}</p>
   `;
 }
+
+//Function to add new quote
+function addQuotes() {
+    //Get the values added by the user
+    let qouteText = document.getElementById("newQuoteText").value.trim();
+    let quoteCategory = document.getElementById("newQuoteCategory").value.trim();
+ 
+    if (qouteText === "" || quoteCategory ==="" ) {
+        alert("Please Enter a quote and Category.");
+        return;
+    }
+
+     
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
