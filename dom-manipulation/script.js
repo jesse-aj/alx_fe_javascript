@@ -20,7 +20,14 @@ function addQuote (text, category) {
 }
 
 
+//this stores the last viewed quote temporarily
+function saveLastViewedQuote(quote) {
+    sessionStorage.setItem("lastQuote", JSON.stringify(quote));
+}
 
+function getLastViewedQuote(){
+    return JSON.parse(sessionStorage.getItem("lastQuote"));
+}
 
 
 
