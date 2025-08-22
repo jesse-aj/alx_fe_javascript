@@ -445,7 +445,7 @@ function startPeriodicSync() {
   // Run immediate sync once, then set interval
   syncQuotes();
   syncIntervalId = setInterval(syncQuotes, SYNC_INTERVAL_MS);
-  setNotification("Auto-sync started.");
+  setNotification("Quotes synced with server!");
 }
 
 function stopPeriodicSync() {
