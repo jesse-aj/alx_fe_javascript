@@ -18,8 +18,19 @@ function fetchQuotesFromServer() {
     .then(response => response.json())
     .then(data => {
         //maps data into your quotes array format
-        quotes = data.map(item => ({text: item.title, category: "General"}));
-        //Merge 
+        const serverQuotes = data.map(item => ({text: item.title, category: "General"}));
+        //Merge server quotes with local quotes
+        const mergedQuotes = [...quotes];
+        
+        serverQuotes.forEach(sq => {
+            if(!mergedQuotes.some(lq => lq.text === sq.text && lq.category === sq.category)) {
+                mergedQuotes.push(sq);
+            }
+        })
+
+        quotes = mergedQuotes;
+
+
         saveQuotes();
         populateCategories();
         showRandomQuote();
@@ -192,7 +203,8 @@ function addQuote() {
             headers: {"Content-type" : "application/json ; charset=UTF-8"},
         })
         .then(response => response.json())
-        .then(data => console.log("Saved to server:", err));
+        .then(data => console.log("Saved to server:", data))
+        .catch(err => console.error("Error posting quote:", err));
     }
 
     quotes.push(newQuote);
