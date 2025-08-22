@@ -34,10 +34,8 @@ function populateCategories() {
    }
 
 }
- //Calls the function once the page load
-populateCategories();
 
-function filterQuotes () {
+function filterQuotes() {
     const selectedCategory = categoryFilter.value;
 
     //saves selected category in localStorage
@@ -50,8 +48,8 @@ function filterQuotes () {
      }
 
      //Display a random quote from fitered list
-     if (filteredQuotes.lenght > 0 ) {
-        const randomIndex = Math.floor(Math.random() * filteredQuotes.lenght);
+     if (filteredQuotes.length > 0 ) {
+        const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
         const quote = filteredQuotes[randomIndex];
         quoteDisplay.innerHTML = `
         <p>"${quote.text}"</p>
@@ -59,33 +57,11 @@ function filterQuotes () {
      } else {
         quoteDisplay.innerHTML = "<p>No quotes available in this category.</p>";
      }
-    
-
-
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ //Calls the function once the page load
+populateCategories();
 
 
 function saveQuotes() {
@@ -126,7 +102,7 @@ function saveQuotes() {
 
 
 // this functions add a new quote
-function addQuote (text, category) {
+function addQuoteFromConsole (text, category) {
     quotes.push({text, category});
     saveQuotes();
 }
@@ -145,6 +121,8 @@ function getLastViewedQuote(){
 // Select elements
 const quoteDisplay = document.getElementById("quoteDisplay");
 const newQuoteButton = document.getElementById("newQuoteBtn");
+
+
 
 // Function to show random Quote
 function showRandomQuote() {
@@ -209,7 +187,7 @@ function createAddQuoteForm() {
 }
 
 // Attach event listener
-newQuoteButton.addEventListener("click", showRandomQuote);
+newQuoteButton.addEventListener("click", showRandomQuotes);
 
 // Call form creation once (so it appears on page load)
 createAddQuoteForm();
