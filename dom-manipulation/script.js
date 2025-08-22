@@ -7,6 +7,22 @@ let quotes = [
 if(localStorage.getItem("quotes")) {
     quotes=JSON.parse(localStorage.getItem("quotes"));
 }
+//a function that lets you read files the user picks in the browser
+
+function importFromJsonFile(event){
+const fileReader = new FileReader();
+ //function to take the JSON text and converts it into Javascript array of objects
+
+fileReader.onload = function(event) {
+    const importedQuotes = JSON.parse(event.target.result);
+    quotes.push(...importedQuotes);
+    saveQuotes();
+    alert("Quotes imported succesfully")
+};
+ fileReader.readAsText(event.target.files[0]);
+
+}
+
 // this function saves quote into localStorage
 function saveQuotes(){
     localStorage.setItem("quotes", JSON.stringify(quotes));
