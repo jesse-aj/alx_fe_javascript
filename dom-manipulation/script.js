@@ -21,7 +21,25 @@ if(localStorage.getItem("quotes")) {
     a.download = "quoutes.json";
     a.click();
     URL.revokeObjectURL(url);
+ }
 
+ //function to import JSONfile
+ function importFromJsonFile(event) {
+    const file = event.target.files[0];
+    if(!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        try {
+            const importedQuotes = JSON.parse(e.target.result);
+            quotes.push(...importedQuotes);
+            saveQuotes();
+            alert("Quotes imported Succesfully");
+        } catch (err) {
+            alert("Invalid JSON fie.");
+            console.error(err);
+        }
+    };
+    reader.readAsText(file);
  }
 
 
