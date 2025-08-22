@@ -1,43 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Dynamic Quote Generator</title>
+  <style>
+    /* Minimal styles so UI elements are readable in the checker */
+    body { font-family: Arial, sans-serif; line-height: 1.4; padding: 16px; }
+    #quoteDisplay { margin: 12px 0; padding: 12px; border: 1px solid #ddd; min-height: 48px; }
+    .controls { margin: 8px 0; }
+    #notification { margin-top: 12px; color: #b00; font-weight: 600; }
+    #conflictArea { margin-top: 12px; border: 1px dashed #888; padding: 10px; display: none; background: #fafafa; }
+    .conflict-item { padding: 8px; border-bottom: 1px solid #eee; }
+    .conflict-actions button { margin-right: 6px; }
+    #lastSync { margin-top: 8px; font-size: 0.9em; color: #333; }
+    button { cursor: pointer; }
+  </style>
 </head>
 <body>
   <h1>Dynamic Quote Generator</h1>
 
-  <!-- Quote display section -->
-  <div id="quoteDisplay"></div>
-  <button id="newQuote">Show New Quote</button>
+  <!-- Quote display -->
+  <div id="quoteDisplay" aria-live="polite"></div>
+  <div class="controls">
+    <button id="newQuote">Show New Quote</button>
+  </div>
 
   <!-- Add new quote form -->
-  <div>
-    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
-    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
-    <button onclick="addQuote()">Add Quote</button>
-  </div>
+  <section aria-labelledby="addQuoteHeading">
+    <h2 id="addQuoteHeading">Add a Quote</h2>
+    <div>
+      <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+      <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+      <button id="addQuoteBtn">Add Quote</button>
+    </div>
+  </section>
 
-  <!-- Category filter dropdown -->
-  <div>
+  <!-- Category filter -->
+  <section aria-labelledby="filterHeading" style="margin-top:12px;">
+    <h2 id="filterHeading">Filter</h2>
     <label for="categoryFilter">Filter by Category:</label>
-    <select id="categoryFilter" onchange="filterQuotes()">
+    <select id="categoryFilter">
       <option value="all">All Categories</option>
-      <!-- Categories will be dynamically populated -->
     </select>
+  </section>
+
+  <!-- Import / Export JSON -->
+  <section style="margin-top:12px;">
+    <button id="exportBtn">Export Quotes to JSON</button>
+    <input type="file" id="importFile" accept=".json" />
+  </section>
+
+  <!-- Sync controls & status -->
+  <section style="margin-top:12px;">
+    <button id="syncNow">Sync Now</button>
+    <button id="startAutoSyncBtn">Start Auto Sync</button>
+    <button id="stopAutoSyncBtn">Stop Auto Sync</button>
+    <div id="lastSync">Last sync: <span id="lastSyncTime">Never</span></div>
+  </section>
+
+  <!-- Notifications & conflicts -->
+  <div id="notification" role="status" aria-live="polite"></div>
+
+  <!-- Conflict UI: will be populated by script.js when conflicts exist -->
+  <div id="conflictArea" aria-live="polite">
+    <strong>Conflicts / Server updates detected:</strong>
+    <div id="conflictList"></div>
+    <div style="margin-top:8px;">
+      <button id="undoLastSyncBtn">Undo Last Sync</button>
+    </div>
   </div>
 
-  <!-- JSON import/export controls -->
-  <div>
-    <button onclick="exportToJsonFile()">Export Quotes to JSON</button>
-    <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
-  </div>
-
-  <!-- Notification area for sync/conflict resolution -->
-  <div id="notification" style="color: red; font-weight: bold; margin-top: 10px;"></div>
-
-  <!-- Link JS file -->
+  <!-- Script -->
   <script src="script.js"></script>
 </body>
 </html>
