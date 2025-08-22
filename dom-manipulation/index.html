@@ -6,8 +6,12 @@
   <title>Dynamic Quote Generator</title>
 </head>
 <body>
+  
   <input type = "file" id = "importFile" accept=".json" onchange="importFromJsonFile(event)" />
   <button id="exportBtn" onclick="exportToJsonFile()">Export Quotes</button>
+  <select id="categoryFilter" onchange="filterQuotes()">
+    <option value="all">ALL CATEGORIES</option>
+  </select>
   <div id="quoteDisplay"></div>
   <button id="newQuoteBtn">Show New Quote</button>
 
