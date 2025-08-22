@@ -23,21 +23,19 @@ function populateCategories() {
     categories.forEach(cat => {
         const option = document.createElement("option");
         option.value = cat;
-    }
+        option.textContent = cat;
+        categoryFilter.appendChild(option);
+    });
 
-    )
-
-
-
-
-
-
-
-
-
-
+    //this will restore last selected queries if it exist
+   const savedCategory = localStorage.getItem("lastCategory");
+   if (savedCategory && categories.includes(savedCategory)) {
+    categoryFilter.value = savedCategory;
+   }
 
 }
+
+populateCategories();
 
 
 
