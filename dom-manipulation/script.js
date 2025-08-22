@@ -14,16 +14,6 @@ if (localStorage.getItem("quotes")) {
 
 
 
-function fetchQuotesFromServer() {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-    .then(response => response.json())
-    .then(data => {
-        //maps data into your quotes array format
-        const serverQuotes = data.map(item => ({text: item.title, category: "General"}));
-        mergeServerQuotes(serverQuotes);
-    })    
-    .catch(err => console.error("Error fetching quotes:", err));
-}
 
 
 
@@ -45,6 +35,18 @@ function fetchQuotesFromServer() {
                 populateCategories();
                 showRandomQuote();
       }
+      
+      function fetchQuotesFromServer() {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+    .then(response => response.json())
+    .then(data => {
+        //maps data into your quotes array format
+        const serverQuotes = data.map(item => ({text: item.title, category: "General"}));
+        mergeServerQuotes(serverQuotes);
+    })    
+    .catch(err => console.error("Error fetching quotes:", err));
+}
+
 
 fetchQuotesFromServer();
 
