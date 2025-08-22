@@ -51,80 +51,8 @@ function fetchQuotesFromServer() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+fetchQuotesFromServer();          // initial fetch
+setInterval(fetchQuotesFromServer, 10000); // check every 10 seconds
 
 
 
