@@ -104,43 +104,45 @@ function showRandomQuote() {
 // ============================
 // FETCH QUOTES FROM SERVER + CONFLICT RESOLUTION
 // ============================
-function fetchQuotesFromServer() {
-    fetch("https://jsonplaceholder.typicode.com/posts")
-        .then(response => response.json())
-        .then(data => {
-            // Convert server data to local format
-            const serverQuotes = data.map(item => ({ text: item.title, category: "General" }));
+async function fetchQuotesFromServer() {
+  try {
+    const response = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const data = await response.json();
 
-            // Detect conflicts: server quotes not in local
-            const conflicts = serverQuotes.filter(sq => 
-                !quotes.some(lq => lq.text === sq.text && lq.category === sq.category)
-            );
+    // Map server data to your quote format
+    const serverQuotes = data.map(item => ({ text: item.title, category: "General" }));
 
-            if (conflicts.length > 0) {
-                // Show notification to user
-                conflictNotification.style.display = "block";
-                conflictMessage.textContent = `There are ${conflicts.length} new quotes on the server.`;
+    // Check for conflicts: quotes that exist on the server but not locally
+    const conflicts = serverQuotes.filter(sq => 
+      !quotes.some(lq => lq.text === sq.text && lq.category === sq.category)
+    );
 
-                // User chooses to keep local quotes
-                keepLocalBtn.onclick = () => {
-                    conflictNotification.style.display = "none";
-                    console.log("User kept local quotes.");
-                };
+    if (conflicts.length > 0) {
+      // Show notification to the user
+      const notification = document.getElementById("conflictNotification");
+      const message = document.getElementById("conflictMessage");
+      notification.style.display = "block";
+      message.textContent = `There are ${conflicts.length} new quotes on the server.`;
 
-                // User chooses to merge server quotes
-                useServerBtn.onclick = () => {
-                    quotes = [...quotes, ...conflicts]; // merge server quotes
-                    saveQuotes(); // update localStorage
-                    populateCategories(); // refresh categories
-                    showRandomQuote(); // show a quote
-                    conflictNotification.style.display = "none";
-                    console.log("User accepted server quotes.");
-                };
-            }
-        })
-        .catch(err => console.error("Error fetching quotes:", err));
+      document.getElementById("keepLocalBtn").onclick = () => {
+        notification.style.display = "none";
+        console.log("User kept local quotes.");
+      };
+
+      document.getElementById("useServerBtn").onclick = () => {
+        quotes = [...quotes, ...conflicts];
+        saveQuotes();
+        populateCategories();
+        showRandomQuote();
+        notification.style.display = "none";
+        console.log("User accepted server quotes.");
+      };
+    }
+
+  } catch (err) {
+    console.error("Error fetching quotes:", err);
+  }
 }
-
 // Initial fetch
 fetchQuotesFromServer();
 
@@ -247,3 +249,4 @@ function createAddQuoteForm() {
 populateCategories();
 createAddQuoteForm();
 newQuoteButton.addEventListener("click", showRandomQuote);
+
