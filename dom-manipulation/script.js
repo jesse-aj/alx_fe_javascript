@@ -10,42 +10,123 @@ if (localStorage.getItem("quotes")) {
   quotes = JSON.parse(localStorage.getItem("quotes"));
 }
 
-      function mergeServerQuotes(serverQuotes) {
-        const merged = [...quotes] //starts with local quotes
-
-        serverQuotes.forEach(sq => {
-            const index = merged.findIndex(lq => lq.text === sq.text);
-            if(index === -1) {
-                //quotes does not exist locally, add it
-                merged.push(sq);
-            } else {
-                // Conflict: same text exists but category may differ -> server wins
-                merged[index].category = sq.category;
-            }
-        });
-                quotes = merged; //update main quotes array
-                saveQuotes();
-                populateCategories();
-                showRandomQuote();
-      }
-
-
-
-      function fetchQuotesFromServer() {
-      fetch("https://jsonplaceholder.typicode.com/posts")
+function fetchQuotesFromServer() {
+    fetch("https://jsonplaceholder.typicode.com/posts")
     .then(response => response.json())
     .then(data => {
-        //maps data into your quotes array format
-        const serverQuotes = data.map(item => ({text: item.title, category: "General"}));
-        mergeServerQuotes(serverQuotes);
-    })    
+        // Map server data to your quote format
+        const serverQuotes = data.map(item => ({ text: item.title, category: "General" }));
+
+        // Check for conflicts: quotes that exist on the server but not locally
+        const conflicts = serverQuotes.filter(sq => 
+            !quotes.some(lq => lq.text === sq.text && lq.category === sq.category)
+        );
+
+        if (conflicts.length > 0) {
+            // Show notification to the user
+            const notification = document.getElementById("conflictNotification");
+            const message = document.getElementById("conflictMessage");
+            notification.style.display = "block";
+            message.textContent = `There are ${conflicts.length} new quotes on the server.`;
+
+            // Attach actions to buttons
+            document.getElementById("keepLocalBtn").onclick = () => {
+                notification.style.display = "none"; // hide notification
+                console.log("User kept local quotes.");
+            };
+
+            document.getElementById("useServerBtn").onclick = () => {
+                quotes = [...quotes, ...conflicts]; // merge server quotes
+                saveQuotes(); // update local storage
+                populateCategories(); // update categories
+                showRandomQuote(); // refresh displayed quote
+                notification.style.display = "none"; // hide notification
+                console.log("User accepted server quotes.");
+            };
+        }
+
+    })
     .catch(err => console.error("Error fetching quotes:", err));
 }
 
 
-fetchQuotesFromServer();
 
-setInterval(fetchQuotesFromServer, 10000);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -78,6 +159,10 @@ function populateCategories() {
 
 }
 
+
+
+
+
 function filterQuotes() {
     const selectedCategory = categoryFilter.value;
 
@@ -107,9 +192,19 @@ function filterQuotes() {
 populateCategories();
 
 
+
+
+
+
+
+
+
 function saveQuotes() {
  localStorage.setItem("quotes", JSON.stringify(quotes));
 }
+
+
+
 
 
 //a function that lets you read files the user exprt JSON in the browser
@@ -123,6 +218,13 @@ function saveQuotes() {
     a.click();
     URL.revokeObjectURL(url);
  }
+
+
+
+
+
+
+
 
  //function to import JSONfile
  function importFromJsonFile(event) {
@@ -144,6 +246,9 @@ function saveQuotes() {
  }
 
 
+
+
+
 // this functions add a new quote
 function addQuoteFromConsole (text, category) {
     quotes.push({text, category});
@@ -151,19 +256,30 @@ function addQuoteFromConsole (text, category) {
 }
 
 
+
+
+
+
 // this stores the last viewed quote temporarily
 function saveLastViewedQuote(quote) {
     sessionStorage.setItem("lastQuote", JSON.stringify(quote));
 }
 
+
+
+
+
 function getLastViewedQuote(){
     return JSON.parse(sessionStorage.getItem("lastQuote"));
 }
-
-
 // Select elements
 const quoteDisplay = document.getElementById("quoteDisplay");
 const newQuoteButton = document.getElementById("newQuoteBtn");
+
+
+
+
+
 
 
 
@@ -187,7 +303,11 @@ function showRandomQuote() {
   }
 }
 
-    
+   
+
+
+
+
 
 // Function to add new quote
 function addQuote() {
@@ -204,6 +324,12 @@ function addQuote() {
     quotes.push(newQuote);
     // this merges the first function with the other one
     saveQuotes();
+
+
+
+
+
+
 
     function postQuotesToServer(quote) {
         fetch("https://jsonplaceholder.typicode.com/posts", {
@@ -232,6 +358,12 @@ function addQuote() {
     // Show the new random quote
     showRandomQuote();
 }
+
+
+
+
+
+
 
 // Function to create the add quote form (outside addQuote)
 function createAddQuoteForm() {
