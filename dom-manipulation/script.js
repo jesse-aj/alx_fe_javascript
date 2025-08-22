@@ -19,6 +19,7 @@ function fetchQuotesFromServer() {
     .then(data => {
         //maps data into your quotes array format
         quotes = data.map(item => ({text: item.title, category: "General"}));
+        //Merge 
         saveQuotes();
         populateCategories();
         showRandomQuote();
@@ -183,6 +184,20 @@ function addQuote() {
     quotes.push(newQuote);
     // this merges the first function with the other one
     saveQuotes();
+
+    function postQuotesToServer(quote) {
+        fetch("https://jsonplaceholder.typicode.com/posts", {
+            method:"POST",
+            body: JSON.stringify(quote),
+            headers: {"Content-type" : "application/json ; charset=UTF-8"},
+        })
+        .then(response => response.json())
+        .then(data => console.log("Saved to server:", err));
+    }
+
+    quotes.push(newQuote);
+    saveQuotes();
+    postQuotesToServer(newQuote);
 
     // Update categories dropdown if a new category was added
     populateCategories();
