@@ -126,14 +126,25 @@ const newQuoteButton = document.getElementById("newQuoteBtn");
 
 // Function to show random Quote
 function showRandomQuote() {
-    let randomIndex = Math.floor(Math.random() * quotes.length);
-    let randomQuote = quotes[randomIndex];
+  const selectedCategory = categoryFilter.value;
+  let filteredQuotes = quotes;
+  if (selectedCategory !== "all") {
+    filteredQuotes = quotes.filter(q => q.category === selectedCategory);
+  }
 
+  if (filteredQuotes.length > 0) {
+    const randomIndex = Math.floor(Math.random() * filteredQuotes.length);
+    const quote = filteredQuotes[randomIndex];
     quoteDisplay.innerHTML = `
-        <p>"${randomQuote.text}"</p>
-        <p><strong>Category:</strong> ${randomQuote.category}</p>
+      <p>"${quote.text}"</p>
+      <p><strong>Category:</strong> ${quote.category}</p>
     `;
+  } else {
+    quoteDisplay.innerHTML = "<p>No quotes available in this category.</p>";
+  }
 }
+
+    
 
 // Function to add new quote
 function addQuote() {
@@ -187,7 +198,7 @@ function createAddQuoteForm() {
 }
 
 // Attach event listener
-newQuoteButton.addEventListener("click", showRandomQuotes);
+newQuoteButton.addEventListener("click", showRandomQuote);
 
 // Call form creation once (so it appears on page load)
 createAddQuoteForm();
