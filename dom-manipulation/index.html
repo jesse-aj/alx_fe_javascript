@@ -3,25 +3,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dynamic Quote Generator</title>
+  <title>Document</title>
 </head>
 <body>
-  
-  <input type = "file" id = "importFile" accept=".json" onchange="importFromJsonFile(event)" />
-  <button id="exportBtn" onclick="exportToJsonFile()">Export Quotes</button>
   <select id="categoryFilter" onchange="filterQuotes()">
-    <option value="all">ALL CATEGORIES</option>
-  </select>
-  <div id="quoteDisplay"></div>
-  <button id="newQuoteBtn">Show New Quote</button>
-  <div id="conflictNotification" style="display:none; padding:10px; background-color:yellow; margin:10px 0;">
-    <span id="conflictMessage"></span>
-    <button id="keepLocalBtn">Keep Local</button>
-    <button id="useServerBtn">Use Server</button>
+  <option value="all">All Categories</option>
+</select>
+
+<div id="quoteDisplay"></div>
+<button id="newQuoteBtn">Show New Quote</button>
+
+<!-- Conflict notification UI -->
+<div id="conflictNotification" style="display:none; padding:10px; background: #fff3cd; border:1px solid #ffeeba; margin:12px 0;">
+  <span id="conflictMessage"></span>
+  <button id="keepLocalBtn">Keep Local</button>
+  <button id="useServerBtn">Use Server</button>
 </div>
 
+<script src="script.js"></script>
 
-  <script src="script.js"></script> 
-</body>
+  
 </body>
 </html>
