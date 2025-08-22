@@ -4,10 +4,67 @@ let quotes = [
     { text: "It’s not whether you get knocked down, it’s whether you get up.", category: "Resilience" }
 ];
 
+
 //this loads saved quotes from local storage if any
 if (localStorage.getItem("quotes")) {
   quotes = JSON.parse(localStorage.getItem("quotes"));
 }
+
+//this gets the dropdown element
+const categoryFilter = document.getElementById("categoryFilter");
+
+//get unique categories from quotes
+function populateCategories() {
+    // this removes old options except "All Categories"
+    categoryFilter.innerHTML = `<option value="all">All Categories</option>`
+    
+    const categories = [...new Set(quotes.map(q => q.category))];
+
+    categories.forEach(cat => {
+        const option = document.createElement("option");
+        option.value = cat;
+    }
+
+    )
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  
 function saveQuotes() {
  localStorage.setItem("quotes", JSON.stringify(quotes));
@@ -44,36 +101,6 @@ function saveQuotes() {
     };
     reader.readAsText(file);
  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // this functions add a new quote
