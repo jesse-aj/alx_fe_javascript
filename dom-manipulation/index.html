@@ -3,25 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>Dynamic Quote Generator</title>
 </head>
 <body>
-  <select id="categoryFilter" onchange="filterQuotes()">
-  <option value="all">All Categories</option>
-</select>
+  <h1>Dynamic Quote Generator</h1>
 
-<div id="quoteDisplay"></div>
-<button id="newQuoteBtn">Show New Quote</button>
+  <!-- Quote display section -->
+  <div id="quoteDisplay"></div>
+  <button id="newQuote">Show New Quote</button>
 
-<!-- Conflict notification UI -->
-<div id="notification" style="display:none; color: green; font-weight: bold;">
-  <span id="conflictMessage"></span>
-  <button id="keepLocalBtn">Keep Local</button>
-  <button id="useServerBtn">Use Server</button>
-</div>
+  <!-- Add new quote form -->
+  <div>
+    <input id="newQuoteText" type="text" placeholder="Enter a new quote" />
+    <input id="newQuoteCategory" type="text" placeholder="Enter quote category" />
+    <button onclick="addQuote()">Add Quote</button>
+  </div>
 
-<script src="script.js"></script>
+  <!-- Category filter dropdown -->
+  <div>
+    <label for="categoryFilter">Filter by Category:</label>
+    <select id="categoryFilter" onchange="filterQuotes()">
+      <option value="all">All Categories</option>
+      <!-- Categories will be dynamically populated -->
+    </select>
+  </div>
 
-  
+  <!-- JSON import/export controls -->
+  <div>
+    <button onclick="exportToJsonFile()">Export Quotes to JSON</button>
+    <input type="file" id="importFile" accept=".json" onchange="importFromJsonFile(event)" />
+  </div>
+
+  <!-- Notification area for sync/conflict resolution -->
+  <div id="notification" style="color: red; font-weight: bold; margin-top: 10px;"></div>
+
+  <!-- Link JS file -->
+  <script src="script.js"></script>
 </body>
 </html>
