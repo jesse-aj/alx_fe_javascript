@@ -13,34 +13,44 @@ if (localStorage.getItem("quotes")) {
 
 
 
+
 function fetchQuotesFromServer() {
     fetch("https://jsonplaceholder.typicode.com/posts")
     .then(response => response.json())
     .then(data => {
         //maps data into your quotes array format
         const serverQuotes = data.map(item => ({text: item.title, category: "General"}));
-        //Merge server quotes with local quotes
-        const mergedQuotes = [...quotes];
-        
-        serverQuotes.forEach(sq => {
-            if(!mergedQuotes.some(lq => lq.text === sq.text && lq.category === sq.category)) {
-                mergedQuotes.push(sq);
-            }
-        })
-
-        quotes = mergedQuotes;
-
-
-        saveQuotes();
-        populateCategories();
-        showRandomQuote();
-    })
+        mergeServerQuotes(serverQuotes);
+    })    
     .catch(err => console.error("Error fetching quotes:", err));
 }
+
+
+
+      function margeServerQuotes(serverQuotes) {
+        const merged = [...quotes] //starts with local quotes
+
+        serverQuotes.forEach(sq => {
+            const index = merged.findIndex(lq => lq.text === sq.text);
+            if(index === -1) {
+                //quotes does not exist locally, add it
+                merged.push(sq);
+            } else {
+                // Conflict: same text exists but category may differ -> server wins
+                merged[index].category = sq.category;
+            }
+        });
+
+        
+      }
 
 fetchQuotesFromServer();
 
 setInterval(fetchQuotesFromServer, 10000);
+
+
+
+
 
 
 
