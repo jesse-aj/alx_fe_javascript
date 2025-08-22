@@ -10,6 +10,28 @@ if (localStorage.getItem("quotes")) {
   quotes = JSON.parse(localStorage.getItem("quotes"));
 }
 
+
+
+
+function fetchQuotesFromServer() {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+    .then(response => response.json())
+    .then(data => {
+        //maps data into your quotes array format
+        quotes = data.map(item => ({text: item.title, category: "General"}));
+        saveQuotes();
+        populateCategories();
+        showRandomQuote();
+    })
+    .catch(err => console.error("Error fetching quotes:", err));
+}
+
+fetchQuotesFromServer();
+
+setInterval(fetchQuotesFromServer, 10000);
+
+
+
 //this gets the dropdown element
 const categoryFilter = document.getElementById("categoryFilter");
 
@@ -161,7 +183,7 @@ function addQuote() {
     quotes.push(newQuote);
     // this merges the first function with the other one
     saveQuotes();
-    
+
     // Update categories dropdown if a new category was added
     populateCategories();
 
