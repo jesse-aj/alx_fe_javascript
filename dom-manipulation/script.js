@@ -34,9 +34,35 @@ function populateCategories() {
    }
 
 }
-
+ //Calls the function once the page load
 populateCategories();
 
+function filterQuotes () {
+    const selectedCategory = categoryFilter.value;
+
+    //saves selected category in localStorage
+    localStorage.setItem("lastCategory", selectedCategory)
+
+     //filter quotes array
+     let filteredQuotes = quotes;
+     if (selectedCategory !== "all") {
+        filteredQuotes = quotes.filter(q => q.category === selectedCategory);
+     }
+
+     //Display a random quote from fitered list
+     if (filteredQuotes.lenght > 0 ) {
+        const randomIndex = Math.floor(Math.random() * filteredQuotes.lenght);
+        const quote = filteredQuotes[randomIndex];
+        quoteDisplay.innerHTML = `
+        <p>"${quote.text}"</p>
+        <p><strong>Category:</strong> ${quote.category}</p>`;
+     } else {
+        quoteDisplay.innerHTML = "<p>No quotes available in this category.</p>";
+     }
+    
+
+
+}
 
 
 
@@ -62,8 +88,6 @@ populateCategories();
 
 
 
-
- 
 function saveQuotes() {
  localStorage.setItem("quotes", JSON.stringify(quotes));
 }
