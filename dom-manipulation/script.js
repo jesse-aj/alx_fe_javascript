@@ -4,8 +4,11 @@ let quotes = [
     { text: "It’s not whether you get knocked down, it’s whether you get up.", category: "Resilience" }
 ];
 
-
- //this loads saved quotes from local storage if any
+//this loads saved quotes from local storage if any
+if (localStorage.getItem("quotes")) {
+  quotes = JSON.parse(localStorage.getItem("quotes"));
+}
+ 
 function saveQuotes() {
  localStorage.setItem("quotes", JSON.stringify(quotes));
 }
