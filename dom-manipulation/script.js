@@ -161,6 +161,9 @@ function addQuote() {
     quotes.push(newQuote);
     // this merges the first function with the other one
     saveQuotes();
+    
+    // Update categories dropdown if a new category was added
+    populateCategories();
 
     alert("New quote added successfully!");
 
