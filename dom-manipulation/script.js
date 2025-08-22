@@ -13,14 +13,14 @@ function saveQuotes(){
 }
 
 
-//this functions add a new quote
+// this functions add a new quote
 function addQuote (text, category) {
     quotes.push({text, category});
     saveQuotes();
 }
 
 
-//this stores the last viewed quote temporarily
+// this stores the last viewed quote temporarily
 function saveLastViewedQuote(quote) {
     sessionStorage.setItem("lastQuote", JSON.stringify(quote));
 }
@@ -28,71 +28,6 @@ function saveLastViewedQuote(quote) {
 function getLastViewedQuote(){
     return JSON.parse(sessionStorage.getItem("lastQuote"));
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 // Select elements
@@ -123,6 +58,8 @@ function addQuote() {
     // Create new quote object and add it to array
     let newQuote = { text: quoteText, category: quoteCategory };
     quotes.push(newQuote);
+    // this merges the first function with the other one
+    saveQuotes();
 
     alert("New quote added successfully!");
 
