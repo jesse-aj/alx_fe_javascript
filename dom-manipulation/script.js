@@ -3,6 +3,90 @@ let quotes = [
     { text: "Don’t let yesterday take up too much of today.", category: "Wisdom" },
     { text: "It’s not whether you get knocked down, it’s whether you get up.", category: "Resilience" }
 ];
+ //this loads saved quotes from local storage if any
+if(localStorage.getItem("quotes")) {
+    quotes=JSON.parse(localStorage.getItem("quotes"));
+}
+// this function saves quote into localStorage
+function saveQuotes(){
+    localStorage.setItem("quotes", JSON.stringify(quotes));
+}
+
+
+//this functions add a new quote
+function addQuote (text, category) {
+    quotes.push({text, category});
+    saveQuotes();
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Select elements
 const quoteDisplay = document.getElementById("quoteDisplay");
