@@ -6,13 +6,13 @@ let quotes = [
 
 
  //this loads saved quotes from local storage if any
-if(localStorage.getItem("quotes")) {
-    quotes=JSON.parse(localStorage.getItem("quotes"));
+function saveQuotes() {
+ localStorage.setItem("quotes", JSON.stringify(quotes));
 }
 
 
 //a function that lets you read files the user exprt JSON in the browser
- function exportToJSONFile() {
+ function exportToJsonFile() {
     const dataStr = JSON.stringify(quotes, null, 2);
     const blob = new Blob([dataStr], {type: "application/json"});
     const url = URL.createObjectURL(blob);
