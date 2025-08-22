@@ -40,8 +40,10 @@ function fetchQuotesFromServer() {
                 merged[index].category = sq.category;
             }
         });
-
-        
+                quotes = merged; //update main quotes array
+                saveQuotes();
+                populateCategories();
+                showRandomQuote();
       }
 
 fetchQuotesFromServer();
