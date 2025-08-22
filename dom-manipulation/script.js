@@ -10,14 +10,7 @@ if (localStorage.getItem("quotes")) {
   quotes = JSON.parse(localStorage.getItem("quotes"));
 }
 
-
-
-
-
-
-
-
-      function margeServerQuotes(serverQuotes) {
+      function mergeServerQuotes(serverQuotes) {
         const merged = [...quotes] //starts with local quotes
 
         serverQuotes.forEach(sq => {
@@ -35,9 +28,11 @@ if (localStorage.getItem("quotes")) {
                 populateCategories();
                 showRandomQuote();
       }
-      
+
+
+
       function fetchQuotesFromServer() {
-    fetch("https://jsonplaceholder.typicode.com/posts")
+      fetch("https://jsonplaceholder.typicode.com/posts")
     .then(response => response.json())
     .then(data => {
         //maps data into your quotes array format
