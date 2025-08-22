@@ -3,30 +3,52 @@ let quotes = [
     { text: "Don’t let yesterday take up too much of today.", category: "Wisdom" },
     { text: "It’s not whether you get knocked down, it’s whether you get up.", category: "Resilience" }
 ];
+
+
  //this loads saved quotes from local storage if any
 if(localStorage.getItem("quotes")) {
     quotes=JSON.parse(localStorage.getItem("quotes"));
 }
-//a function that lets you read files the user picks in the browser
 
-function importFromJsonFile(event){
-const fileReader = new FileReader();
- //function to take the JSON text and converts it into Javascript array of objects
 
-fileReader.onload = function(event) {
-    const importedQuotes = JSON.parse(event.target.result);
-    quotes.push(...importedQuotes);
-    saveQuotes();
-    alert("Quotes imported succesfully")
-};
- fileReader.readAsText(event.target.files[0]);
+//a function that lets you read files the user exprt JSON in the browser
+ function exportToJSONFile() {
+    const dataStr = JSON.stringify(quotes, null, 2);
+    const blob = new Blob([dataStr], {type: "application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    
+ }
 
-}
 
-// this function saves quote into localStorage
-function saveQuotes(){
-    localStorage.setItem("quotes", JSON.stringify(quotes));
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // this functions add a new quote
